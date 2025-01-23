@@ -1,0 +1,42 @@
+class Solution {
+
+    // Move elems from i to (i + k) % n and then copy all elems to nums
+
+    public void rotate(int[] nums, int k) {
+        k = k % nums.length;
+
+        int[] rotated = new int[nums.length];
+
+        for (int i=0; i<nums.length; i++) {
+            rotated[(i + k) % nums.length] = nums[i];
+        }
+
+        for (int i=0; i<nums.length; i++) {
+            nums[i] = rotated[i];
+        }
+    }
+
+    // Make copy of last elements, move first elements to end and then paste the last elems to start
+
+    public void rotate1(int[] nums, int k) {
+        k = k % nums.length;
+
+        if (k == 0) return;
+
+        List<Integer> backwardElems = new ArrayList<>();
+
+        for (int i = nums.length - k; i<nums.length; i++) {
+            backwardElems.add(nums[i]);
+        }
+
+        int x = nums.length - 1;
+        for (int i = nums.length - k - 1; i >= 0; i--) {
+            nums[x] = nums[i];
+            x--;
+        }
+
+        for (int i = 0; i<k; i++) {
+            nums[i] = backwardElems.get(i);
+        }
+    }
+}
