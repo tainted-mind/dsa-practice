@@ -1,0 +1,24 @@
+class Solution {
+
+    // Calculate the profit for each day if the stock was purchased yesterday and sold today
+    // Add up all the profit days and ignore the loss making days
+
+    // In other words we need to add up all the increase in numbers from left to right
+
+    public int maxProfit(int[] prices) {
+        int profit = 0;
+
+        int[] stocksSoldOnNextDayProfitArr = new int[prices.length];
+        Arrays.fill(stocksSoldOnNextDayProfitArr, -1);
+
+        for (int i=1; i<prices.length; i++) {
+            stocksSoldOnNextDayProfitArr[i] = prices[i] - prices[i - 1];
+        }
+
+        for (int p: stocksSoldOnNextDayProfitArr) {
+            profit += Math.max(0, p);
+        }
+
+        return profit;
+    }
+}

@@ -1,0 +1,29 @@
+class Solution {
+    
+    // Hold the currNum and its count; create an index where all future nums are added
+    // Allow currNum to be used in array start atmost two times
+    // Return index
+    
+    public int removeDuplicates(int[] nums) {
+        int index = 0;
+        int currNumCount = 0;
+        int currNum = -10001;
+
+        for (int i = 0; i <nums.length; i++) {
+            if (nums[i] > currNum) {
+                currNum = nums[i];
+                currNumCount = 1;
+                nums[index] = currNum;
+                index++;
+            } else {
+                if (currNumCount < 2) {
+                    currNumCount = 2;
+                    nums[index] = currNum;
+                    index++;
+                }
+            }
+        }
+
+        return index;
+    }
+}

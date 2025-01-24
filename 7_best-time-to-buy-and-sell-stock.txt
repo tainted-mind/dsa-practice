@@ -1,0 +1,20 @@
+class Solution {
+
+    // Record the lowest buy price
+    // With every iteration calculate the profit as profit = currPrice - buyPrice
+
+    public int maxProfit(int[] prices) {
+        int buyPrice = prices[0];
+        int profit = 0;
+
+        for(int currPrice: prices) {
+            if (currPrice < buyPrice) {
+                buyPrice = currPrice;
+            } else {
+                profit = Math.max(profit, currPrice - buyPrice);
+            }
+        }
+
+        return profit;
+    }
+}
