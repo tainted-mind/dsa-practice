@@ -1,0 +1,26 @@
+class Solution {
+
+    // Calc prefix and suffix product
+    // Return either array as p[i] = p[i] * s[i]
+
+    public int[] productExceptSelf(int[] nums) {
+        int[] prefix = new int[nums.length];
+        int[] suffix = new int[nums.length];
+
+        prefix[0] = 1; 
+        suffix[nums.length - 1] = 1;
+
+        for(int i=0; i<nums.length; i++) {
+            if (i != 0) {
+                prefix[i] = prefix[i - 1] * nums[i - 1];
+                suffix[nums.length - i - 1] = suffix[nums.length - i] * nums[nums.length - i];
+            }
+        }
+
+        for(int i=0; i<nums.length; i++) {
+            prefix[i] = prefix[i] * suffix[i];
+        }
+
+        return prefix;
+    }
+}
