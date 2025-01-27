@@ -1,0 +1,17 @@
+class Solution {
+
+    // Make sure you can reach the goal from prev position
+    // If so, update goal = prevPos and prevPos = prevPos - 1
+
+    public boolean canJump(int[] nums) {
+        int goal = nums.length - 1;
+
+        for (int currentPos = nums.length - 2; currentPos >= 0; currentPos--) {
+            if (currentPos + nums[currentPos] >= goal) {
+                goal = currentPos;
+            }
+        }
+
+        return goal == 0;
+    }
+}

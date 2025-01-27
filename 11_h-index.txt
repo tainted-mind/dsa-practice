@@ -1,0 +1,19 @@
+class Solution {
+
+    // Most H-Index = Number of Research Papers
+    // Sort the array and set hIndex = nums.length
+    // On every iteration decrease hIndex if nums[i] < hIndex
+
+    public int hIndex(int[] citations) {
+        Arrays.sort(citations);
+        int hIndex = citations.length;
+
+        for(int i=0; i<citations.length; i++) {
+            if (citations[i] < hIndex) {
+                hIndex--;
+            }
+        }
+
+        return hIndex;
+    }
+}
