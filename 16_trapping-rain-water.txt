@@ -1,0 +1,33 @@
+class Solution {
+
+    // For every iteration where left < right
+    // Check which is small LMAX or RMAX
+    // Whichever is smaller use that to calc water for current dip as:
+    // water = MAX - currentDipHeight
+    // Update the pointers with either left++ or right--;
+    // Update the MAX if currentDipHeight > MAX
+
+    public int trap(int[] height) {
+        int left = 0; 
+        int right = height.length - 1;
+
+        int lMax = height[left];
+        int rMax = height[right];
+
+        int water = 0;
+
+        while (left < right) {
+            if (lMax <= rMax) {
+                water += lMax - height[left];
+                left++;
+                lMax = Math.max(lMax, height[left]);
+            } else {
+                water += rMax - height[right];
+                right--;
+                rMax = Math.max(rMax, height[right]);
+            }
+        }
+
+        return water;
+    }
+}
