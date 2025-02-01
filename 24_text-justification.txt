@@ -1,0 +1,65 @@
+class Solution {
+    public List<String> fullJustify(String[] words, int maxWidth) {
+        List<String> ans = new ArrayList<String>();
+        int i = 0;
+
+        while (i < words.length) {
+            int usedWordLength = words[i].length();
+            int noOfSpaceReq = 0;
+            int j = i + 1;
+
+            while (j < words.length && usedWordLength + 1 + noOfSpaceReq + words[j].length() <= maxWidth) {
+                usedWordLength += words[j].length();
+                noOfSpaceReq++;
+                j++;
+            }
+
+            // spacePerWord is min spaces per word
+            // remainingSpaces will be used for first N words on the left for extra spaces
+
+            int totalSpacesReqForThisLine = maxWidth - usedWordLength;
+            int spacePerWord = noOfSpaceReq == 0 ? 0 : totalSpacesReqForThisLine / noOfSpaceReq;
+            int remainingSpaces = noOfSpaceReq == 0 ? 0 : totalSpacesReqForThisLine % noOfSpaceReq;
+
+            // If last life this will ensure that the textJustification is left
+            if (j == words.length) {
+                spacePerWord = 1;
+                remainingSpaces = 0;
+            }
+
+            String s = helper(i, j, spacePerWord, remainingSpaces, words, maxWidth);
+            ans.add(s);
+            i = j;
+        }
+
+        return ans;
+    }
+
+    public String helper(int i, int j, int spacePerWord, int remainingSpaces, String[] words, int maxWidth) {
+        String s = "";
+
+        // For first N - 1 words we add spaces after the word, for the last we dont add any spaces
+        while (i < j - 1) {
+            s += words[i];
+
+            for (int k=0; k<spacePerWord; k++) {
+                s += " ";
+            }
+
+            if (remainingSpaces > 0) {
+                s += " ";
+                remainingSpaces--;
+            }
+
+            i++;
+        }
+
+        s += words[j-1];
+
+        while (s.length() < maxWidth) {
+            s += " ";
+        }
+
+        return s;
+    }
+}
