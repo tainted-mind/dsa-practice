@@ -1,0 +1,19 @@
+class Solution {
+
+    // Iterate over string; if we find char of s, increment count
+    // At the end just check if we have reached the end of the s string
+
+    public boolean isSubsequence(String s, String t) {
+        int count = 0;
+
+        for (char ch: t.toCharArray()) {
+            if (count == s.length()) return true;
+            
+            if (ch == s.charAt(count)) {
+                count++;
+            }
+        }
+
+        return count == s.length();
+    }
+}

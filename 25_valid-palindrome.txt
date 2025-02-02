@@ -1,0 +1,28 @@
+class Solution {
+
+    // 1. Convert string to lower case, and use regex to remove all by [^a-z0-9]
+    // 2. Use ascii values to consider 48-57 and 97-122 as valid participants
+    // Use two pointers to check left and right, if fails return false; otherwise left++ and right--
+
+    public boolean isPalindrome(String s) {
+        String lower = s.toLowerCase();
+        int left = 0; 
+        int right = lower.length() - 1;
+
+        while (left < right) {
+            while (left < right && !isValidCharacter(lower.charAt(left))) left++;
+            while (left < right && !isValidCharacter(lower.charAt(right))) right--;
+
+            if (left < right && lower.charAt(left) != lower.charAt(right)) return false;
+            left++;
+            right--;
+        }
+
+        return true;
+    }
+
+    public boolean isValidCharacter(char c) {
+        int i = c;
+        return (i >= 97 && i <= 122) || (i >= 48 && i <= 57);
+    }
+}
